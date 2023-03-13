@@ -37,10 +37,11 @@ Request Body JSON:
 }
 
 
-Successfull Response:
+Success Response:
 
 {
 
+    "status": true,
     "message": "Slot Booked Successfully"
 
 }
@@ -50,6 +51,7 @@ Error Response:
 
 {
 
+    "status": false,
     "error": "This Slot is already Booked, Try another Slot"
 
 }
