@@ -44,7 +44,9 @@ const SlotPost = async function (req, res) {
       return res.status(400).json({ error: "Invalid Time Range" });
     }
 
-    if (!/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(date)) {
+    const dateRegex = /^(?:(?:[1-9]\d{3})(?:\/)(?:(?:0[1-9]|1[0-2])(?:\/)(?:0[1-9]|[1-2]\d|3[0-1])))$/
+
+    if (!dateRegex.test(date)) {
       return res.status(400).send({
         status: false,
         error: `Date should be in "YYYY-MM-DD" format`,
@@ -67,7 +69,7 @@ const SlotPost = async function (req, res) {
             });
         } else {
           //if not, than creating the slot
-          connection.query(
+         connection.query(
             `INSERT INTO slots (date, startSlotTime, endSlotTime) VALUES ('${date}', '${startSlotTime}', '${endSlotTime}')`,
             function (err, results) {
               if (err) throw err;
