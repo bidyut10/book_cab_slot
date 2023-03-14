@@ -53,6 +53,16 @@ const SlotPost = async function (req, res) {
       });
     }
 
+    const today= new Date();
+    const todayFormat = today.toISOString().slice(0, 10).replace(/-/g, "/");
+
+    const currentTimeStamp = Date.parse(todayFormat);
+    const inputTimeStamp = Date.parse(date);
+
+    if (inputTimeStamp < currentTimeStamp)  {
+        return res.status(400).send({status:false, error: 'Previous Dates are not Available, Try Current or Upcoming Date' });
+    }
+
     // Checking the existing slot
     connection.query(
       `SELECT * FROM slots WHERE date = '${date}' AND ((startSlotTime >= '${startSlotTime}' AND startSlotTime < '${endSlotTime}') OR (endSlotTime > '${startSlotTime}' AND endSlotTime <= '${endSlotTime}'))`,
