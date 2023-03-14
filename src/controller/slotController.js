@@ -65,7 +65,7 @@ const SlotPost = async function (req, res) {
 
     // Checking the existing slot
     connection.query(
-      `SELECT * FROM slots WHERE date = '${date}' AND ((startSlotTime >= '${startSlotTime}' AND startSlotTime < '${endSlotTime}') OR (endSlotTime > '${startSlotTime}' AND endSlotTime <= '${endSlotTime}'))`,
+      `SELECT * FROM slots WHERE date = '${date}' AND ((startSlotTime >= '${startSlotTime}' AND startSlotTime < '${endSlotTime}') OR (endSlotTime > '${startSlotTime}' AND endSlotTime <= '${endSlotTime}') OR (startSlotTime <= '${startSlotTime}' AND endSlotTime >= '${endSlotTime}'))`,
       function (err, results) {
         if (err) throw err;
 
